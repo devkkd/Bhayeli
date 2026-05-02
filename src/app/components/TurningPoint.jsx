@@ -1,12 +1,12 @@
 export default function TurningPoint() {
   return (
-    <section className="w-full bg-[#f5f0e8] py-14 md:py-20 px-6 md:px-12 lg:px-20">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start gap-10 md:gap-16">
+    <section className="w-full py-14 md:py-20 px-6 md:px-12 lg:px-20" style={{ fontFamily: "var(--font-philosopher)" }}>
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start gap-10 md:gap-16">
 
         {/* Left Content */}
         <div className="flex-1 flex flex-col items-start gap-5">
 
-          <p className="text-[13px] font-semibold text-[#1a1a2e] tracking-wide">
+          <p className="text-[16px] font-semibold text-[#1a1a2e] tracking-wide">
             Our Purpose
           </p>
 
