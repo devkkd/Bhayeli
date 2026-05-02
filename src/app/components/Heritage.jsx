@@ -40,7 +40,7 @@ export default function Heritage() {
 
         {/* Decorative divider */}
         <div className="flex items-center justify-center gap-3 text-[#c4a882]">
-          <img src="/image/design/design-1.png" className="w-1/2"/>
+          <img src="/image/design/design1.png" className="w-1/2"/>
         </div>
 
       </div>

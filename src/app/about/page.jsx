@@ -1,5 +1,6 @@
 import ImageSliderStrip from "../components/ImageSliderStrip";
 import TurningPoint from "../components/TurningPoint";
+import OurPhilosophy from "../components/OurPhilosophy";
 
 export default function AboutPage() {
   return (
@@ -58,6 +59,9 @@ export default function AboutPage() {
 
       {/* Turning Point */}
       <TurningPoint />
+
+      {/* Our Philosophy */}
+      <OurPhilosophy />
 
     </main>
   );
