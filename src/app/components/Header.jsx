@@ -10,7 +10,7 @@ const categories = [
   { label: "Makeup Bags", href: "/makeup-bags" },
   { label: "Kimono Robe", href: "/kimono-robe" },
   { label: "Tote Bags", href: "/tote-bags" },
-  { label: "Custom Request", href: "/custom-request" },
+  { label: "Custom Request", href: "/customReq" },
 ];
 
 export default function Header() {
@@ -130,9 +130,12 @@ export default function Header() {
             </svg>
           </button>
 
-          <button className="text-[11px] font-semibold bg-[#1a1a2e] text-white px-3.5 py-1.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">
+          <Link
+            href="/customReq"
+            className="text-[11px] font-semibold bg-[#1a1a2e] text-white px-3.5 py-1.5 rounded-full hover:bg-black transition-colors whitespace-nowrap inline-block"
+          >
             Custom Request →
-          </button>
+          </Link>
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
