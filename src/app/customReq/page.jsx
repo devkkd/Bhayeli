@@ -57,21 +57,21 @@ export default function CustomRequest() {
     <main className="w-full bg-[#FCF9F4] min-h-screen py-16 md:py-20 px-4 sm:px-6">
       {/* --- Header Section --- */}
       <section className="max-w-4xl mx-auto text-center mb-16">
-        <span className="text-[#1a1a2e] text-lg font-semibold block mb-4" style={{ fontFamily: "var(--font-philosopher)" }}>
+        <span className="text-[#1a1a2e] text-[16px] font-semibold block mb-4" style={{ fontFamily: "var(--font-philosopher)" }}>
           Custom Request
         </span>
         <h1
-          className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-[3rem] font-bold leading-tight mb-8"
+          className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8"
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           Let's create something beautiful together
         </h1>
-        <p className="text-[14.5px] md:text-[17px] text-[#0E0E0E] leading-relaxed mb-4">
+        <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E] leading-relaxed mb-4">
           Whether you have a fully developed concept or are exploring possibilities, we're here to help. Share your
           requirements below, and our team will respond within 24-48 hours with information, samples, or quotations to move
           your project forward.
         </p>
-        <p className="text-[14.5px] md:text-[17px] text-[#0E0E0E] leading-relaxed">
+        <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E] leading-relaxed">
           All inquiries are treated confidentially. We respect your design concepts and business information.
         </p>
       </section>
@@ -193,7 +193,7 @@ export default function CustomRequest() {
       {/* --- What Happens Next Section --- */}
       <section className="max-w-6xl mx-auto px-4 pb-12">
         <h2
-          className="text-[#1a1a2e] text-3xl md:text-4xl font-bold text-center mb-16"
+          className="text-[#1a1a2e] text-3xl md:text-5xl font-bold text-center mb-16"
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           What Happens Next?
@@ -208,7 +208,7 @@ export default function CustomRequest() {
               >
                 {step.title}
               </h3>
-              <p className="text-[14.5px] text-[#0E0E0E] leading-relaxed">
+              <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E] leading-relaxed">
                 {step.desc}
               </p>
             </div>

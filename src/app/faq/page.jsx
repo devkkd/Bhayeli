@@ -168,13 +168,13 @@ export default function FAQPage() {
       {/* --- Header Section --- */}
       <section className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
         <span 
-          className="text-[#1a1a2e] text-lg md:text-xl font-bold block mb-4" 
+          className="text-[#1a1a2e] text-[16px] font-semibold block mb-4" 
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           FAQ's
         </span>
         <h1
-          className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-[3.2rem] font-bold leading-tight mb-6"
+          className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           Frequently Requested Information
@@ -244,7 +244,7 @@ export default function FAQPage() {
                     <div className="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-300 ease-in-out">
                       <div className="overflow-hidden">
                         {/* Added pt-4 to separate the answer from the question when opened */}
-                        <p className="text-[14.5px] text-[#0E0E0E] leading-relaxed pr-8 md:pr-12 pt-4">
+                        <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E] leading-relaxed pr-8 md:pr-12 pt-4">
                           {item.a}
                         </p>
                       </div>

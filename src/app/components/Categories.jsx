@@ -5,37 +5,37 @@ const categories = [
     tag: "Indian Floral",
     title: "Susani Hand Embroidery Jackets",
     image: "/image/category/Mask group (4).png",
-    href: "/hand-embroidered-jacket",
+    href: "/collections/hand-embroidered-jacket",
   },
   {
     tag: "Long Sleeves",
     title: "Womens Nightware",
     image: "/image/category/Mask group (5).png",
-    href: "/womens-nightwear",
+    href: "/collections/womens-nightwear",
   },
   {
     tag: "Hand Block Printed Floral Woven",
     title: "Quilted Jacket",
     image: "/image/category/Mask group (10).png",
-    href: "/jacket",
+    href: "/collections/jacket",
   },
   {
     tag: "Eco-Friendly Sustainable Cotton Block Print",
     title: "Makeup Bags",
     image: "/image/category/Mask group (11).png",
-    href: "/makeup-bags",
+    href: "/collections/makeup-bags",
   },
   {
     tag: "Lightweight 100% Cotton",
     title: "Kimono Robe",
     image: "/image/category/Mask group (12).png",
-    href: "/kimono-robe",
+    href: "/collections/kimono-robe",
   },
   {
     tag: "Eco-Friendly Quilted Cotton Sustainable",
     title: "Women's Tote Bags",
     image: "/image/category/Mask group (13).png",
-    href: "/tote-bags",
+    href: "/collections/tote-bags",
   },
 ];
 
@@ -95,7 +95,7 @@ export default function Categories() {
 
         {/* Decorative divider */}
         <div className="flex items-center justify-center gap-3 text-[#c4a882] mt-12">
-           <img src="/image/design/design-1.png" className="w-2/5"/>
+           <img src="/image/design/design1.png" className="w-2/5"/>
         </div>
 
       </div>

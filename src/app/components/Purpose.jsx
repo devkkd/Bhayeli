@@ -7,18 +7,17 @@ export default function Purpose() {
 
         {/* Left Content */}
         <div className="flex-1 flex flex-col items-start">
-          <p className="text-[24px] font-semibold text-[#1a1a2e] mb-3 tracking-wide">
+          <p className="text-[16px] font-semibold text-[#1a1a2e] mb-3 tracking-wide">
             Our Purpose
           </p>
 
           <h2
-            className="text-[#1a1a2e] text-2xl md:text-3xl lg:text-[2.7rem] font-bold leading-snug mb-5"
-           
+            className="text-[#1a1a2e] text-3xl md:text-5xl font-bold leading-snug mb-5"
           >
             Craftsmanship with Impact
           </h2>
 
-          <p className="text-[13.5px] md:text-[18px] font-medium text-[#0E0E0E] leading-relaxed mb-8">
+          <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E] leading-relaxed mb-8">
             Born from the realities of rural Rajasthan, where skilled women often lack
             access to dignified work opportunities, Bhayeli was founded to create change.
             We bring meaningful employment to women particularly single mothers

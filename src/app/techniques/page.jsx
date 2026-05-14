@@ -46,7 +46,7 @@ export default function TechniquePage() {
       {/* --- Header Section --- */}
       <section className="py-8 md:py-12 px-6 max-w-7xl mx-auto" style={{ fontFamily: "var(--font-philosopher)" }}>
         <div className=" mx-auto text-center">
-          <span className="text-[#1a1a2e] text-lg md:text-xl block mb-4">Our Techniques</span>
+          <span className="text-[#1a1a2e] text-lg md:text-xl font-bold block mb-4">Our Techniques</span>
           <h1 className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-10">
             Centuries-old crafts meet contemporary innovation
           </h1>
@@ -79,7 +79,7 @@ export default function TechniquePage() {
                 <h4 className="text-[#1a1a2e] text-2xl md:text-4xl font-bold leading-tight">
                   {item.subtitle}
                 </h4>
-                <p className="text-[14.5px] md:text-[17px] text-[#0E0E0E] leading-relaxed">
+                <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E] leading-relaxed">
                   {item.description}
                 </p>
                 <button className="mt-4 px-8 py-3 bg-[#051124] text-white rounded-full flex items-center gap-2 hover:bg-[#0a1d3a] transition-all text-sm md:text-base">

@@ -22,14 +22,14 @@ export default function ContactPage() {
       {/* --- Header Section --- */}
       <section className="max-w-4xl mx-auto text-center mb-16">
         <span 
-          className="text-[#1a1a2e] text-xl md:text-2xl font-bold block mb-4" 
+          className="text-[#1a1a2e] text-[16px] font-semibold block mb-4" 
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           Contact Us
         </span>
         
         <h1
-          className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-[2.8rem] font-bold leading-tight mb-8"
+          className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8"
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           We're here to help bring your vision to life

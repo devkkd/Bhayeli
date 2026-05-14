@@ -2,54 +2,14 @@ import Link from "next/link";
 import ProductCard from "./ProductCard";
 
 const products = [
-  {
-    title: "Hand Embroidered Jacket",
-    image: "/image/category/Mask group (10).png",
-    href: "/hand-embroidered-jacket",
-    moq: "MOQ: 50 pcs",
-  },
-  {
-    title: "Women's Nightwear",
-    image: "/image/category/Mask group (11).png",
-    href: "/womens-nightwear",
-    moq: "MOQ: 100 pcs",
-  },
-  {
-    title: "Quilted Jacket",
-    image: "/image/category/Mask group (13).png",
-    href: "/jacket",
-    moq: "MOQ: 50 pcs",
-  },
-  {
-    title: "Hand Embroidered Jacket",
-    image: "/image/category/Mask group (5).png",
-    href: "/hand-embroidered-jacket",
-    moq: "MOQ: 50 pcs",
-  },
-  {
-    title: "Women's Nightwear",
-    image: "/image/category/Mask group (4).png",
-    href: "/womens-nightwear",
-    moq: "MOQ: 100 pcs",
-  },
-  {
-    title: "Quilted Jacket",
-    image: "/image/category/Mask group (12).png",
-    href: "/jacket",
-    moq: "MOQ: 50 pcs",
-  },
-   {
-    title: "Hand Embroidered Jacket",
-    image: "/image/category/Mask group (10).png",
-    href: "/hand-embroidered-jacket",
-    moq: "MOQ: 50 pcs",
-  },
-  {
-    title: "Women's Nightwear",
-    image: "/image/category/Mask group (11).png",
-    href: "/womens-nightwear",
-    moq: "MOQ: 100 pcs",
-  },
+  { title: "Hand Embroidered Jacket", image: "/image/category/Mask group (10).png", href: "/collections/hand-embroidered-jacket", moq: "MOQ: 50 pcs" },
+  { title: "Women's Nightwear", image: "/image/category/Mask group (11).png", href: "/collections/womens-nightwear", moq: "MOQ: 100 pcs" },
+  { title: "Quilted Jacket", image: "/image/category/Mask group (13).png", href: "/collections/jacket", moq: "MOQ: 50 pcs" },
+  { title: "Hand Embroidered Jacket", image: "/image/category/Mask group (5).png", href: "/collections/hand-embroidered-jacket", moq: "MOQ: 50 pcs" },
+  { title: "Women's Nightwear", image: "/image/category/Mask group (4).png", href: "/collections/womens-nightwear", moq: "MOQ: 100 pcs" },
+  { title: "Quilted Jacket", image: "/image/category/Mask group (12).png", href: "/collections/jacket", moq: "MOQ: 50 pcs" },
+  { title: "Hand Embroidered Jacket", image: "/image/category/Mask group (10).png", href: "/collections/hand-embroidered-jacket", moq: "MOQ: 50 pcs" },
+  { title: "Women's Nightwear", image: "/image/category/Mask group (11).png", href: "/collections/womens-nightwear", moq: "MOQ: 100 pcs" },
 ];
 
 export default function OurProducts() {
