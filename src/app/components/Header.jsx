@@ -324,7 +324,7 @@ export default function Header() {
               <Link href="/faq" className="text-[14px] font-medium text-gray-500 hover:text-[#1a1a2e] whitespace-nowrap">FAQ</Link>
               <Link href="/contact" className="text-[14px] font-medium text-gray-500 hover:text-[#1a1a2e] whitespace-nowrap">Contact Us</Link>
             </nav>
-            <Link href="/customReq" className="bg-[#1a1a2e] text-white px-5 py-2.5 rounded-full text-[13px] font-bold hover:bg-black transition-all flex items-center gap-2 whitespace-nowrap">
+            <Link href="/custom" className="bg-[#1a1a2e] text-white px-5 py-2.5 rounded-full text-[13px] font-bold hover:bg-black transition-all flex items-center gap-2 whitespace-nowrap">
               Custom Request →
             </Link>
           </div>

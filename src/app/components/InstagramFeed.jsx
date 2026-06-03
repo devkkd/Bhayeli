@@ -7,7 +7,7 @@ const posts = [
 
 export default function InstagramFeed() {
   return (
-    <section className="w-full bg-[#f5f0e8] py-14 md:py-20 px-6 md:px-12 lg:px-20">
+    <section className="w-full py-8 px-6 md:px-12 lg:px-20">
       <div className="max-w-6xl mx-auto">
 
         {/* Heading */}

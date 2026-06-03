@@ -87,13 +87,13 @@ export default function Footer() {
             <p className="text-[12px] text-gray-500 leading-relaxed">
               Reach out to us Mon - Sat<br />(10 AM - 7 PM)
             </p>
-            <a href="tel:+911234567890" className="text-[12px] text-gray-500 hover:text-[#1a1a2e] transition-colors">
+            {/* <a href="tel:+911234567890" className="text-[12px] text-gray-500 hover:text-[#1a1a2e] transition-colors">
               +91 12345 67890
-            </a>
+            </a> */}
             <div>
               <p className="text-[12px] text-gray-500">Email Us at</p>
-              <a href="mailto:support@bhayeli.com" className="text-[12px] text-gray-500 hover:text-[#1a1a2e] transition-colors">
-                support@bhayeli.com
+              <a href="mailto:monika@bhayeli.com" className="text-[12px] text-gray-500 hover:text-[#1a1a2e] transition-colors">
+                monika@bhayeli.com
               </a>
             </div>
           </div>

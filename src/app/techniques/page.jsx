@@ -42,12 +42,12 @@ const techniquesData = [
 
 export default function TechniquePage() {
   return (
-    <main className="w-full bg-[#FCF9F4]">
+    <main className="w-full ">
       {/* --- Header Section --- */}
-      <section className="py-8 md:py-12 px-6 max-w-7xl mx-auto" style={{ fontFamily: "var(--font-philosopher)" }}>
+      <section className="py-8 md:py-12 px-6 max-w-6xl mx-auto" style={{ fontFamily: "var(--font-philosopher)" }}>
         <div className=" mx-auto text-center">
           <span className="text-[#1a1a2e] text-lg md:text-xl font-bold block mb-4">Our Techniques</span>
-          <h1 className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-10">
+          <h1 className="text-[#1a1a2e] text-3xl md:text-5xl font-bold leading-tight mb-10">
             Centuries-old crafts meet contemporary innovation
           </h1>
           
@@ -104,9 +104,7 @@ export default function TechniquePage() {
       </section>
 
       {/* Decorative Divider */}
-      <div className="flex items-center justify-center pb-16 px-6">
-        <img src="/image/design/design-1.png" alt="decorative divider" className="w-full max-w-xl opacity-80" />
-      </div>
+     
       <LookingForward />
     </main>
 

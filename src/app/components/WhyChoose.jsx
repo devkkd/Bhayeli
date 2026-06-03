@@ -65,7 +65,7 @@ export default function WhyChoose() {
 
         {/* Heading */}
         <h2
-          className="text-center text-[#1a1a2e] text-2xl md:text-3xl font-bold lg:text-[2.8rem] mb-12"
+          className="text-center text-[#1a1a2e] text-2xl md:text-5xl font-bold  mb-12"
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           Why Choose Bhayeli

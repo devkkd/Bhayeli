@@ -18,29 +18,29 @@ export default function ContactPage() {
   ];
 
   return (
-    <main className="w-full min-h-screen bg-[#FCF9F4] py-16 md:py-20 px-4 sm:px-6">
+    <main className="w-full min-h-screen py-16 md:py-20 px-4 sm:px-6"  style={{ fontFamily: "var(--font-philosopher)" }}>
       {/* --- Header Section --- */}
-      <section className="max-w-4xl mx-auto text-center mb-16">
+      <section className="max-w-7xl mx-auto text-center mb-16">
         <span 
-          className="text-[#1a1a2e] text-[16px] font-semibold block mb-4" 
+          className="text-[#1a1a2e] text-[20px] font-semibold block mb-4" 
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           Contact Us
         </span>
         
         <h1
-          className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8"
+          className="text-[#1a1a2e] text-3xl md:text-5xl font-bold  mb-8"
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           We're here to help bring your vision to life
         </h1>
         
         <div className="max-w-3xl mx-auto">
-          <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E] leading-relaxed mb-2">
+          <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E]  mb-2">
             Whether you're ready to place an order, have questions about our techniques, want to discuss a custom project, or
             are simply exploring options, we welcome your inquiry.
           </p>
-          <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E] leading-relaxed">
+          <p className="text-[14.5px] md:text-[18px] text-[#0E0E0E]">
             Our team is responsive, knowledgeable, and committed to finding solutions that work for your business.
           </p>
         </div>

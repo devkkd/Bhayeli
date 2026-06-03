@@ -6,29 +6,29 @@ export default function AboutPage() {
   return (
     <main className="flex-grow bg-white px-6 py-12 md:py-20" style={{ fontFamily: "var(--font-philosopher)" }}>
       {/* Section: Hero Title */}
-      <section className="max-w-7xl mx-auto text-center mb-24">
-        <h2 className="font-bold text-2xl md:text-3xl text-gray-800 mb-6" >
+      <section className="max-w-7xl mx-auto text-center mb-16">
+        <h2 className="font-bold text-2xl md:text-2xl text-gray-800 mb-6" >
           About Bhayeli
         </h2>
-        <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight ">
+        <h1 className="text-4xl md:text-4xl font-bold text-black  ">
           Where tradition meets intention,
           Where luxury meets purpose
         </h1>
       </section>
 
       {/* Section: Our Story */}
-      <section className="max-w-4xl mx-auto text-center space-y-12">
+      <section className="max-w-6xl mx-auto text-center space-y-10">
         <div>
-          <h3 className="font-philosopher font-bold text-3xl  text-gray-800 mb-6">
+          <h3 className="font-philosopher font-bold text-2xl  text-gray-800 mb-6">
             Our Story
           </h3>
-          <h2 className="font-philosopher text-4xl md:text-5xl font-bold text-black mb-10">
+          <h2 className="font-philosopher text-4xl font-bold text-black mb-10">
             Born from Rural Rajasthan
           </h2>
         </div>
 
         {/* Content Paragraphs */}
-        <div className="font-sans text-gray-700 text-lg leading-relaxed space-y-8 px-4">
+        <div className="text-gray-700 text-lg leading-relaxed space-y-8 px-4">
           <p>
             We were born in rural Rajasthan—a land of heritage, craftsmanship, and resilience, 
             yet one where opportunity remains limited.

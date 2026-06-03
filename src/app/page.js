@@ -10,7 +10,7 @@ import LookingForward from "./components/LookingForward";
 
 export default function Home() {
   return (
-    <main className="flex flex-col flex-1 bg-[#f5f0e8]">
+    <main className="flex flex-col flex-1 bg-[#fcfaf7]">
       <Hero />
       <Heritage />
       <Purpose />

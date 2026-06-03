@@ -54,14 +54,14 @@ export default function CustomRequest() {
   ];
 
   return (
-    <main className="w-full bg-[#FCF9F4] min-h-screen py-16 md:py-20 px-4 sm:px-6">
+    <main className="w-full min-h-screen py-16 md:py-20 px-4 sm:px-6" style={{ fontFamily: "var(--font-philosopher)" }}>
       {/* --- Header Section --- */}
-      <section className="max-w-4xl mx-auto text-center mb-16">
-        <span className="text-[#1a1a2e] text-[16px] font-semibold block mb-4" style={{ fontFamily: "var(--font-philosopher)" }}>
+      <section className="max-w-7xl mx-auto text-center mb-16">
+        <span className="text-[#1a1a2e] text-[20px] font-semibold block mb-4">
           Custom Request
         </span>
         <h1
-          className="text-[#1a1a2e] text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8"
+          className="text-[#1a1a2e] text-3xl md:text-5xl font-bold leading-tight mb-8"
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           Let's create something beautiful together
@@ -77,7 +77,7 @@ export default function CustomRequest() {
       </section>
 
       {/* --- Form Section --- */}
-      <section className="max-w-[1200px] mx-auto bg-white/40 border border-gray-200 rounded-2xl shadow-sm overflow-hidden mb-24">
+      <section className="max-w-[1200px] mx-auto bg-white/40 border border-gray-200 rounded-2xl shadow-sm overflow-hidden mb-14">
         {/* Form Header */}
         <div className="py-6 border-b border-gray-200 text-center">
           <h2 className="text-[#1a1a2e] text-2xl font-bold" style={{ fontFamily: "var(--font-philosopher)" }}>
@@ -186,9 +186,9 @@ export default function CustomRequest() {
       </section>
 
       {/* --- Decorative Divider --- */}
-      <div className="flex items-center justify-center mb-20 px-6">
-        <img src="/image/design/design-1.png" alt="Decorative Divider" className="w-full max-w-lg opacity-80" />
-      </div>
+        <div className="flex items-center py-8 justify-center gap-3 text-[#c4a882]">
+          <img src="/image/design/design1.png" className="w-1/3"/>
+        </div>
 
       {/* --- What Happens Next Section --- */}
       <section className="max-w-6xl mx-auto px-4 pb-12">

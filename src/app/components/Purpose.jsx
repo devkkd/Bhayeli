@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Purpose() {
   return (
-    <section className="w-full py-14 md:py-20 px-6 md:px-12 lg:px-20"  style={{ fontFamily: "var(--font-philosopher)" }}>
+    <section className="w-full px-6 md:px-12 lg:px-20"  style={{ fontFamily: "var(--font-philosopher)" }}>
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16">
 
         {/* Left Content */}

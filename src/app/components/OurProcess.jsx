@@ -39,7 +39,7 @@ const steps = [
 
 export default function OurProcess() {
   return (
-    <section className="w-full  py-14 md:py-20 px-6 md:px-12 lg:px-20">
+    <section className="w-full  py-6 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
@@ -75,8 +75,8 @@ export default function OurProcess() {
         </div>
 
         {/* Decorative divider */}
-       <div className="flex items-center justify-center gap-3 text-[#c4a882] mt-20">
-           <img src="/image/design/design-1.png" className="w-2/5"/>
+        <div className="flex items-center mt-12 justify-center gap-3 text-[#c4a882]">
+          <img src="/image/design/design1.png" className="w-1/3"/>
         </div>
 
       </div>

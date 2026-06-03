@@ -14,12 +14,12 @@ const products = [
 
 export default function OurProducts() {
   return (
-    <section className="w-full py-14 md:py-12 px-6 md:px-12 lg:px-20">
+    <section className="w-full py-6 px-6 md:px-12 lg:px-20">
       <div className="max-w-6xl mx-auto">
 
         {/* Heading */}
         <h2
-          className="text-center text-[#1a1a2e] text-2xl md:text-3xl font-bold lg:text-[2.8rem] mb-12"
+          className="text-center text-[#1a1a2e] text-2xl md:text-5xl font-bold mb-12"
           style={{ fontFamily: "var(--font-philosopher)" }}
         >
           Our Products
@@ -36,8 +36,8 @@ export default function OurProducts() {
 
       </div>
        {/* Decorative divider */}
-         <div className="flex items-center justify-center gap-3 text-[#c4a882] mt-20">
-           <img src="/image/design/design-1.png" className="w-2/5"/>
+         <div className="flex items-center mt-12 justify-center gap-3 text-[#c4a882]">
+          <img src="/image/design/design1.png" className="w-1/3"/>
         </div>
     </section>
   );

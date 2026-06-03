@@ -2,6 +2,7 @@ import { Plus_Jakarta_Sans, Philosopher, Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { headers } from "next/headers";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -23,16 +24,24 @@ const montserrat = Montserrat({
 
 export const metadata = {
   title: "Bhayeli",
-  description: "Bhayeli Web App",
+  description: "Bhayeli — Handcrafted Textiles from Rural Rajasthan",
+  icons: {
+    icon: "/image/logo.png",
+    apple: "/image/logo.png",
+  },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "";
+  const isAdmin = pathname.startsWith("/admin");
+
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${philosopher.variable} ${montserrat.variable}`}>
       <body className="min-h-screen flex flex-col font-sans">
-        <Header />
+        {!isAdmin && <Header />}
         {children}
-        <Footer />
+        {!isAdmin && <Footer />}
       </body>
     </html>
   );
