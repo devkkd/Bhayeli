@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
+export const dynamic = 'force-dynamic';
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 async function getCategories() {

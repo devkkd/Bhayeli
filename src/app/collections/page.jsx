@@ -1,6 +1,8 @@
 import Link from "next/link";
 import LookingForward from "../components/LookingForward";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: "All Collections | Bhayeli",
 };
