@@ -26,8 +26,13 @@ export const metadata = {
   title: "Bhayeli",
   description: "Bhayeli — Handcrafted Textiles from Rural Rajasthan",
   icons: {
-    icon: "/image/logo.png",
-    apple: "/image/logo.png",
+    icon: [
+      { url: "/image/logo.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/image/logo.png", type: "image/png" },
+    ],
+    shortcut: "/image/logo.png",
   },
 };
 
