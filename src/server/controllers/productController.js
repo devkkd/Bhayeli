@@ -59,11 +59,11 @@ export const productController = {
   getProducts: async (req) => {
     try {
       const { searchParams } = new URL(req.url);
-      const collectionSlug = searchParams.get('collectionSlug');
+      const categorySlug = searchParams.get('categorySlug');
       const search = searchParams.get('search');
 
       const filter = {};
-      if (collectionSlug) filter.collectionSlug = collectionSlug;
+      if (categorySlug) filter.categorySlug = categorySlug;
       if (search) {
         filter.$or = [
           { title:     new RegExp(search, 'i') },
@@ -82,8 +82,17 @@ export const productController = {
   getProductById: async (req, context) => {
     try {
       const { id } = await context.params;
-      const product = await Product.findById(id);
-      if (!product) throw new ApiError(404, `Product with ID "${id}" not found.`);
+      // Try MongoDB ObjectId first, then fall back to slug lookup
+      let product = null;
+      const isObjectId = /^[a-f\d]{24}$/i.test(id);
+      if (isObjectId) {
+        product = await Product.findById(id);
+      }
+      // If not found by ID or not an ObjectId, try slug
+      if (!product) {
+        product = await Product.findOne({ slug: id });
+      }
+      if (!product) throw new ApiError(404, `Product "${id}" not found.`);
       return NextResponse.json({ success: true, data: product });
     } catch (error) {
       if (error instanceof ApiError) throw error;
@@ -97,13 +106,13 @@ export const productController = {
       const body = await req.json();
 
       if (!body.title?.trim())          throw new ApiError(400, 'Product title is required.');
-      if (!body.collectionSlug?.trim()) throw new ApiError(400, 'collectionSlug is required.');
+      if (!body.categorySlug?.trim()) throw new ApiError(400, 'categorySlug is required.');
       if (!body.image)                  throw new ApiError(400, 'Main product image is required.');
 
       const newProduct = await Product.create({
         title:               body.title.trim(),
         slug:                toSlug(body.title.trim()),
-        collectionSlug:      body.collectionSlug.trim(),
+        categorySlug:        body.categorySlug.trim(),
         technique:           body.technique || '',
         image:               body.image,
         gallery:             Array.isArray(body.gallery) ? body.gallery : [],
@@ -165,7 +174,7 @@ export const productController = {
 
       const updateFields = {};
       if (body.title              !== undefined) { updateFields.title = body.title.trim(); updateFields.slug = toSlug(body.title.trim()); }
-      if (body.collectionSlug     !== undefined) updateFields.collectionSlug = body.collectionSlug.trim();
+      if (body.categorySlug      !== undefined) updateFields.categorySlug = body.categorySlug.trim();
       if (body.technique          !== undefined) updateFields.technique = body.technique;
       if (body.image              !== undefined) updateFields.image = body.image;
       if (body.gallery            !== undefined) updateFields.gallery = body.gallery;

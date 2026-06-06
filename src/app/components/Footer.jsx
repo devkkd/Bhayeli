@@ -106,7 +106,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-2">
               {[
                 {
-                  label: "@bhayeli.jaipur",
+                  label: "bhayeli.official",
                   href: "https://www.instagram.com/bhayeli.official",
                   icon: (
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
@@ -125,7 +125,7 @@ export default function Footer() {
                   ),
                 },
                 {
-                  label: "@bhayeli.jaipur",
+                  label: "Bhayeli",
                   href: "https://www.facebook.com/bhayeli.official",
                   icon: (
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="#1877F2">
@@ -134,7 +134,7 @@ export default function Footer() {
                   ),
                 },
                 {
-                  label: "@bhayeli.jaipur",
+                  label: "bhayeli.official",
                   href: "https://www.linkedin.com/company/bhayeli/",
                   icon: (
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="#0A66C2">

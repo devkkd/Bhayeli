@@ -1,22 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
-
-export const dynamic = 'force-dynamic';
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-
-async function getCategories() {
-  try {
-    const res = await fetch(`${BASE_URL}/api/categories`, { cache: "no-store" });
-    const data = await res.json();
-    return data.success ? data.data : [];
-  } catch {
-    return [];
-  }
-}
+import { fetchCatalog } from "@/lib/api";
 
 export default async function Categories() {
-  const categories = await getCategories();
+  // Reuses the same cached fetchCatalog — no extra network call
+  const { categories } = await fetchCatalog();
 
   if (categories.length === 0) return null;
 
@@ -66,18 +53,18 @@ export default async function Categories() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="flex justify-center mt-12">
+        {/* <div className="flex justify-center mt-12">
           <Link
             href="/collections"
             className="inline-flex items-center gap-2 bg-[#1a1a2e] text-white text-[13px] font-semibold px-8 py-3 rounded-full hover:bg-black transition-colors"
           >
             See All Our Collections →
           </Link>
-        </div>
+        </div> */}
 
         {/* Decorative divider */}
-       <div className="flex items-center justify-center mt-12 gap-3 text-[#c4a882]">
-          <img src="/image/design/design1.png" className="w-1/3"/>
+        <div className="flex items-center justify-center mt-12 gap-3 text-[#c4a882]">
+          <img src="/image/design/design1.png" className="w-1/3" alt="" />
         </div>
       </div>
     </section>

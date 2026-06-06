@@ -1,246 +1,81 @@
-import { collections as seedCollections } from '../../app/data/collections.js';
+/**
+ * Empty in-memory fallback store.
+ * No seed data — when MongoDB is unavailable, returns empty arrays
+ * so the UI shows empty state rather than stale dummy data.
+ */
 
-let initialized = false;
 let mockCollections = [];
-let mockProducts = [];
-let mockCategories = [];
-
-function initializeMockDb() {
-  if (initialized) return;
-
-  console.log('🌱 Seeding In-Memory Mock Database from collections.js data...');
-  
-  // Seed collections and extract nested products
-  seedCollections.forEach((c) => {
-    mockCollections.push({
-      _id: `col_${c.slug}`,
-      slug: c.slug,
-      title: c.title,
-      tag: c.tag,
-      description: c.description,
-      createdAt: new Date(),
-    });
-
-    // Seed products with collection slug/reference
-    c.products.forEach((p, idx) => {
-      const baseSlug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-      let slug = baseSlug;
-      let counter = 1;
-      while (mockProducts.some((item) => item.slug === slug)) {
-        slug = `${baseSlug}-${counter}`;
-        counter++;
-      }
-
-      mockProducts.push({
-        _id: `prod_${c.slug}_${idx + 1}`,
-        title: p.title,
-        slug: slug,
-        image: p.image,
-        moq: p.moq,
-        collectionSlug: c.slug,
-        size: 'Free Size',
-        oemService: 'Available',
-        customization: 'Anything can be customize as per your requirement',
-        customizedLogo: 'Min. order: 300 pieces',
-        customizedPackaging: 'Min. order: 300 pieces',
-        createdAt: new Date(),
-      });
-    });
-  });
-
-  // Seed default categories for testing
-  mockCategories.push(
-    {
-      _id: 'cat_apparel',
-      title: 'Apparel & Kimonos',
-      slug: 'apparel',
-      image: '/image/category/jacket.png',
-      description: 'Handcrafted sustainable cotton quilted jackets and light kimono robes.',
-      createdAt: new Date(),
-    },
-    {
-      _id: 'cat_bags',
-      title: 'Handbags & Totes',
-      slug: 'bags',
-      image: '/image/category/tote-bag.png',
-      description: 'Ethically crafted cotton quilted tote bags and durable travel accessories.',
-      createdAt: new Date(),
-    },
-    {
-      _id: 'cat_organizers',
-      title: 'Makeup & Organizers',
-      slug: 'organizers',
-      image: '/image/category/makeup-bags.png',
-      description: 'Eco-friendly multi-purpose makeup bags with cotton block printed patterns.',
-      createdAt: new Date(),
-    }
-  );
-
-  initialized = true;
-  console.log(`✅ Seeded ${mockCollections.length} collections, ${mockProducts.length} products, and ${mockCategories.length} categories into Mock DB.`);
-}
-
-// Initialize on load
-initializeMockDb();
+let mockProducts    = [];
+let mockCategories  = [];
 
 export const MockCategory = {
   find: async (query = {}) => {
-    let results = [...mockCategories];
-    Object.keys(query).forEach((key) => {
-      results = results.filter((item) => item[key] === query[key]);
-    });
-    return results;
+    let r = [...mockCategories];
+    Object.keys(query).forEach(k => { r = r.filter(i => i[k] === query[k]); });
+    return r;
   },
-  
-  findOne: async (query = {}) => {
-    const list = await MockCategory.find(query);
-    return list[0] || null;
-  },
-
-  findById: async (id) => {
-    return mockCategories.find((item) => item._id === id) || null;
-  },
-
+  findOne: async (query = {}) => (await MockCategory.find(query))[0] || null,
+  findById: async (id) => mockCategories.find(i => i._id === id) || null,
   create: async (data) => {
-    const newCat = {
-      _id: `cat_${data.slug || Date.now()}`,
-      slug: data.slug || `category-${Date.now()}`,
-      title: data.title || '',
-      image: data.image || '/image/category/makeup-bags.png',
-      description: data.description || '',
-      createdAt: new Date(),
-      ...data
-    };
-    mockCategories.push(newCat);
-    return newCat;
+    const item = { _id: `cat_${Date.now()}`, createdAt: new Date(), ...data };
+    mockCategories.push(item); return item;
   },
-
-  findByIdAndUpdate: async (id, updateData, options = {}) => {
-    const index = mockCategories.findIndex((item) => item._id === id);
-    if (index === -1) return null;
-    mockCategories[index] = { ...mockCategories[index], ...updateData };
-    return mockCategories[index];
+  findByIdAndUpdate: async (id, upd) => {
+    const idx = mockCategories.findIndex(i => i._id === id);
+    if (idx === -1) return null;
+    mockCategories[idx] = { ...mockCategories[idx], ...upd };
+    return mockCategories[idx];
   },
-
   findByIdAndDelete: async (id) => {
-    const index = mockCategories.findIndex((item) => item._id === id);
-    if (index === -1) return null;
-    const deleted = mockCategories[index];
-    mockCategories.splice(index, 1);
-    return deleted;
-  }
+    const idx = mockCategories.findIndex(i => i._id === id);
+    if (idx === -1) return null;
+    return mockCategories.splice(idx, 1)[0];
+  },
 };
 
 export const MockCollection = {
   find: async (query = {}) => {
-    let results = [...mockCollections];
-    // Simple filter support (e.g., matching exact key-values)
-    Object.keys(query).forEach((key) => {
-      results = results.filter((item) => item[key] === query[key]);
-    });
-    return results;
+    let r = [...mockCollections];
+    Object.keys(query).forEach(k => { r = r.filter(i => i[k] === query[k]); });
+    return r;
   },
-  
-  findOne: async (query = {}) => {
-    const list = await MockCollection.find(query);
-    return list[0] || null;
-  },
-
+  findOne: async (query = {}) => (await MockCollection.find(query))[0] || null,
   create: async (data) => {
-    const newCol = {
-      _id: `col_${data.slug || Date.now()}`,
-      slug: data.slug || `collection-${Date.now()}`,
-      title: data.title || '',
-      tag: data.tag || '',
-      description: data.description || '',
-      createdAt: new Date(),
-      ...data
-    };
-    mockCollections.push(newCol);
-    return newCol;
-  }
+    const item = { _id: `col_${Date.now()}`, createdAt: new Date(), ...data };
+    mockCollections.push(item); return item;
+  },
 };
 
 export const MockProduct = {
   find: async (query = {}) => {
-    let results = [...mockProducts];
-
+    let r = [...mockProducts];
     if (query.$or) {
-      results = results.filter((item) =>
-        query.$or.some((condition) => {
-          const key = Object.keys(condition)[0];
-          const val = condition[key];
-          if (val instanceof RegExp) return val.test(item[key]);
-          return item[key] === val;
-        })
-      );
+      r = r.filter(item => query.$or.some(cond => {
+        const k = Object.keys(cond)[0];
+        const v = cond[k];
+        return v instanceof RegExp ? v.test(item[k]) : item[k] === v;
+      }));
     } else {
-      Object.keys(query).forEach((key) => {
-        results = results.filter((item) => item[key] === query[key]);
-      });
+      Object.keys(query).forEach(k => { r = r.filter(i => i[k] === query[k]); });
     }
-
-    return results;
+    return r;
   },
-
-  findOne: async (query = {}) => {
-    const list = await MockProduct.find(query);
-    return list[0] || null;
-  },
-
-  findById: async (id) => {
-    return mockProducts.find((item) => item._id === id) || null;
-  },
-
+  findOne: async (query = {}) => (await MockProduct.find(query))[0] || null,
+  findById: async (id) => mockProducts.find(i => i._id === id) || null,
   create: async (data) => {
-    let baseSlug = (data.title || 'product')
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)+/g, '');
-    let slug = data.slug || baseSlug;
-    let counter = 1;
-    while (mockProducts.some((item) => item.slug === slug)) {
-      slug = `${baseSlug}-${counter}`;
-      counter++;
-    }
-
-    const newProd = {
-      _id: `prod_${Date.now()}`,
-      title: data.title || '',
-      slug: slug,
-      image: data.image || '',
-      gallery: data.gallery || [],
-      moq: data.moq || 'MOQ: 50 pcs',
-      collectionSlug: data.collectionSlug || '',
-      description: data.description || '',
-      spotlight: data.spotlight || '',
-      size: data.size || 'Free Size',
-      oemService: data.oemService || 'Available',
-      customization: data.customization || 'Anything can be customize as per your requirement',
-      customizedLogo: data.customizedLogo || 'Min. order: 300 pieces',
-      customizedPackaging: data.customizedPackaging || 'Min. order: 300 pieces',
-      attributes: data.attributes || [],
-      technique: data.technique || '',
-      createdAt: new Date(),
-      ...data,
-      slug
-    };
-    mockProducts.push(newProd);
-    return newProd;
+    const slug = (data.title || 'product').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    const item = { _id: `prod_${Date.now()}`, slug, createdAt: new Date(), ...data };
+    mockProducts.push(item); return item;
   },
-
-  findByIdAndUpdate: async (id, updateData) => {
-    const index = mockProducts.findIndex((item) => item._id === id);
-    if (index === -1) return null;
-    mockProducts[index] = { ...mockProducts[index], ...updateData };
-    return mockProducts[index];
+  findByIdAndUpdate: async (id, upd) => {
+    const idx = mockProducts.findIndex(i => i._id === id);
+    if (idx === -1) return null;
+    mockProducts[idx] = { ...mockProducts[idx], ...upd };
+    return mockProducts[idx];
   },
-
   findByIdAndDelete: async (id) => {
-    const index = mockProducts.findIndex((item) => item._id === id);
-    if (index === -1) return null;
-    const deleted = mockProducts[index];
-    mockProducts.splice(index, 1);
-    return deleted;
+    const idx = mockProducts.findIndex(i => i._id === id);
+    if (idx === -1) return null;
+    return mockProducts.splice(idx, 1)[0];
   },
 };

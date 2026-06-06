@@ -17,7 +17,7 @@ const ProductSchema = new mongoose.Schema(
     // Core
     title:               { type: String, required: true, trim: true },
     slug:                { type: String, trim: true, default: '' },
-    collectionSlug:      { type: String, required: true, trim: true },
+    categorySlug:        { type: String, required: true, trim: true },
     technique:           { type: String, default: '' },
 
     // Images
@@ -80,7 +80,7 @@ const ProductSchema = new mongoose.Schema(
 );
 
 // Indexes for common query patterns
-ProductSchema.index({ collectionSlug: 1, createdAt: -1 });
+ProductSchema.index({ categorySlug: 1, createdAt: -1 });
 ProductSchema.index({ slug: 1 });
 ProductSchema.index({ title: 'text', technique: 'text' });
 

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #fcfaf7;
   --foreground: #171717;
   --font-plus-jakarta-sans: "Plus Jakarta Sans", sans-serif;
   --font-philosopher: "Philosopher", serif;

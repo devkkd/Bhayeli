@@ -2,63 +2,51 @@ import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections from growing exponentially
- * during API Route usage.
- */
 let cached = global.mongoose;
-
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null, lastAttempt: 0 };
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
 async function dbConnect() {
   if (!MONGODB_URI) {
-    console.warn(
-      '⚠️ MONGODB_URI is not defined in your environmental variables. The API will fall back to using an in-memory/JSON-file database.'
-    );
+    console.warn('⚠️  MONGODB_URI not set — falling back to in-memory store.');
     return null;
   }
 
-  if (cached.conn) {
-    return cached.conn;
-  }
+  // Return existing live connection
+  if (cached.conn) return cached.conn;
 
-  // If the database connection failed within the last 30 seconds, bypass and fallback immediately.
-  const cooldown = 30000;
-  if (Date.now() - (cached.lastAttempt || 0) < cooldown) {
-    return null;
-  }
-
+  // Start a new connection attempt if not already in progress
   if (!cached.promise) {
-    const opts = {
+    cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
-      serverSelectionTimeoutMS: 5000, // Wait at most 5s for selection
-    };
-
-    cached.lastAttempt = Date.now();
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongooseInstance) => {
-      console.log('✅ Connected to MongoDB successfully via Mongoose.');
-      return mongooseInstance;
-    }).catch((err) => {
-      console.error('❌ Failed to connect to MongoDB:', err.message);
-      cached.promise = null;
-      throw err;
-    });
+      serverSelectionTimeoutMS: 10000,
+      connectTimeoutMS: 10000,
+    })
+      .then(m => {
+        console.log('✅ MongoDB connected.');
+        return m;
+      })
+      .catch(err => {
+        console.error('❌ MongoDB connection failed:', err.message);
+        cached.promise = null; // allow retry on next request
+        return null;
+      });
   }
 
   try {
-    cached.conn = await cached.promise;
-  } catch (e) {
+    const result = await cached.promise;
+    if (result) {
+      cached.conn = result;
+      return cached.conn;
+    }
+    // Connection failed — reset so next request retries
     cached.promise = null;
-    console.warn(
-      '⚠️ MongoDB connection failed. Falling back to the local in-memory/JSON database.'
-    );
+    return null;
+  } catch {
+    cached.promise = null;
     return null;
   }
-
-  return cached.conn;
 }
 
 export default dbConnect;
