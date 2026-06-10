@@ -52,7 +52,7 @@ export default function ProductCard({
         {/* "In Cart" badge on image */}
         {isInCart && (
           <div className="absolute top-2.5 left-2.5 bg-[#bfa15f] text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide shadow-sm">
-            ✓ In Cart
+            ✓ In inquiry
           </div>
         )}
       </div>
@@ -76,7 +76,7 @@ export default function ProductCard({
               : "border-[#1a1a2e] text-[#1a1a2e] hover:bg-[#1a1a2e] hover:text-white"
             }`}
         >
-          {isInCart ? "✓ Added" : "+ Add to Cart"}
+          {isInCart ? "✓ Added" : "+ Add to inquiry"}
         </button>
 
         <a

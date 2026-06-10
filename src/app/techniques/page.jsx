@@ -3,6 +3,7 @@ import LookingForward from "../components/LookingForward";
 
 const techniquesData = [
   {
+    id: "block-print",
     title: "Block Print",
     subtitle: "The Art of Precision Repetition",
     description:
@@ -12,6 +13,7 @@ const techniquesData = [
     reverse: false,
   },
   {
+    id: "hand-printing",
     title: "Hand Printing",
     subtitle: "Ancient Mud-Resist Magic",
     description:
@@ -21,6 +23,7 @@ const techniquesData = [
     reverse: true,
   },
   {
+    id: "embroidery",
     title: "Embroidery",
     subtitle: "The Poetry of White Thread",
     description:
@@ -30,6 +33,7 @@ const techniquesData = [
     reverse: false,
   },
   {
+    id: "digital-print",
     title: "Digital Print",
     subtitle: "Contemporary Precision, Unlimited Possibility",
     description:
@@ -70,8 +74,9 @@ export default function TechniquePage() {
         <div className="max-w-7xl mx-auto space-y-20 md:space-y-32">
           {techniquesData.map((item, index) => (
             <div 
-              key={index} 
-              className={`flex flex-col md:flex-row items-center gap-10 md:gap-16 ${item.reverse ? 'md:flex-row-reverse' : ''}`}
+              key={index}
+              id={item.id}
+              className={`flex flex-col md:flex-row items-center gap-10 md:gap-16 scroll-mt-24 ${item.reverse ? 'md:flex-row-reverse' : ''}`}
             >
               {/* Text Content */}
               <div className="w-full md:w-1/2 space-y-6" style={{ fontFamily: "var(--font-philosopher)" }}>
