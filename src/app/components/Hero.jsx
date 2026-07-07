@@ -38,7 +38,7 @@ const slides = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(null); // null = not yet measured
 
   const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), []);
   const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
@@ -57,8 +57,8 @@ export default function Hero() {
 
   const slide = slides[current];
   const activeImage = isMobile ? slide.mobileImage : slide.image;
-  // Mobile: taller aspect ratio (portrait-friendly), Desktop: wide landscape
-  const paddingBottom = isMobile ? "120%" : "42%";
+  // null = not yet hydrated → use desktop as default, then switch after mount
+  const paddingBottom = isMobile === true ? "120%" : "42%";
 
   return (
     <section className="relative w-full" style={{ backgroundColor: slide.bg }}>
