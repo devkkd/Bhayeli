@@ -4,9 +4,9 @@ import OurPhilosophy from "../components/OurPhilosophy";
 
 export default function AboutPage() {
   return (
-    <main className="flex-grow bg-white px-6 py-12 md:py-20" style={{ fontFamily: "var(--font-philosopher)" }}>
+    <main className="flex-grow bg-white px-6 py-8 md:py-20" style={{ fontFamily: "var(--font-philosopher)" }}>
       {/* Section: Hero Title */}
-      <section className="max-w-7xl mx-auto text-center mb-16">
+      <section className="max-w-7xl mx-auto text-center mb-8">
         <h2 className="font-bold text-2xl md:text-2xl text-gray-800 mb-6" >
           About Bhayeli
         </h2>
@@ -17,7 +17,7 @@ export default function AboutPage() {
       </section>
 
       {/* Section: Our Story */}
-      <section className="max-w-6xl mx-auto text-center space-y-10">
+      <section className="max-w-7xl mx-auto text-center space-y-6">
         <div>
           <h3 className="font-philosopher font-bold text-2xl  text-gray-800 mb-6">
             Our Story

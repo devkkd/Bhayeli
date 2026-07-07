@@ -1,11 +1,11 @@
 export default function Heritage() {
   return (
-    <section className="w-full py-16 md:py-20 px-6"  style={{ fontFamily: "var(--font-philosopher)" }}>
+    <section className="w-full py-8 md:py-20 px-6"  style={{ fontFamily: "var(--font-philosopher)" }}>
       <div className="max-w-6xl mx-auto text-center">
 
         {/* Main heading — Philosopher font */}
         <h2
-          className="text-[#1a1a2e] text-3xl md:text-5xl font-bold leading-tight mb-8"
+          className="text-[#1a1a2e] text-2xl md:text-5xl font-bold leading-tight mb-6"
         >
           Heritage Meets Innovation, Purpose Meets Luxury
         </h2>

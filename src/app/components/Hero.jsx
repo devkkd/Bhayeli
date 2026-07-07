@@ -10,7 +10,8 @@ const slides = [
     title: "KIMONOS FOR EVERYONE",
     cta: "See All Collection →",
     ctaHref: "/categories",
-    image: "/image/banner/banner.png",
+    image: "/image/banner/banner.png",          // desktop image
+    mobileImage: "/image/banner/banner.png",    // replace with mobile-specific image when ready
     bg: "#f0ebe3",
   },
   {
@@ -20,6 +21,7 @@ const slides = [
     cta: "See All Collection →",
     ctaHref: "/categories",
     image: "/image/banner/banner.png",
+    mobileImage: "/image/banner/banner.png",
     bg: "#e8e0d5",
   },
   {
@@ -29,15 +31,24 @@ const slides = [
     cta: "See All Collection →",
     ctaHref: "/categories",
     image: "/image/banner/banner.png",
+    mobileImage: "/image/banner/banner.png",
     bg: "#ede6dc",
   },
 ];
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), []);
   const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     const t = setInterval(next, 5000);
@@ -45,16 +56,19 @@ export default function Hero() {
   }, [next]);
 
   const slide = slides[current];
+  const activeImage = isMobile ? slide.mobileImage : slide.image;
+  // Mobile: taller aspect ratio (portrait-friendly), Desktop: wide landscape
+  const paddingBottom = isMobile ? "120%" : "42%";
 
   return (
     <section className="relative w-full" style={{ backgroundColor: slide.bg }}>
       {/* Slide wrapper */}
-      <div className="relative w-full" style={{ paddingBottom: "42%" }}>
+      <div className="relative w-full transition-all duration-300" style={{ paddingBottom }}>
 
         {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
-          style={{ backgroundImage: `url(${slide.image})` }}
+          style={{ backgroundImage: `url(${activeImage})` }}
         />
 
         {/* Top-left tag */}

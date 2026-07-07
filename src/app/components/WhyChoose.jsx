@@ -84,7 +84,7 @@ export default function WhyChoose() {
         </div>
 
         {/* Bottom numbered row */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 px-8 divide-x divide-gray-300"  style={{ fontFamily: "var(--font-philosopher)" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 px-8 divide-x divide-gray-300"  style={{ fontFamily: "var(--font-philosopher)" }}>
           {bottomFeatures.map((f, i) => (
             <div key={i} className="flex flex-col gap-2 p-6">
               <span className="text-[24px] text-[#0E0E0E] font-bold">{f.num}</span>

@@ -3,11 +3,11 @@ import React from "react";
 
 export default function FoundersPage() {
   return (
-    <main className="w-full py-8 md:py-12 px-6"  style={{ fontFamily: "var(--font-philosopher)" }}>
+    <main className="w-full py-6 md:py-12 px-6"  style={{ fontFamily: "var(--font-philosopher)" }}>
       <div className="max-w-7xl mx-auto">
         
         {/* --- Header Section --- */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <span className="text-[#1a1a2e] text-[18px] font-bold block mb-4">
             Founder's Message
           </span>
@@ -17,7 +17,7 @@ export default function FoundersPage() {
         </div>
 
         {/* --- Content Layout --- */}
-        <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
+        <div className="flex flex-col md:flex-row gap-7 md:gap-16 items-start">
           
           {/* Left Side: Image */}
           <div className="w-full md:w-5/12 flex-shrink-0">

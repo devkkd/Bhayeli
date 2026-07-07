@@ -79,7 +79,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="w-full min-h-screen py-16 md:py-20 px-4 sm:px-6 bg-[#f5f0e8]" style={{ fontFamily: "var(--font-philosopher)" }}>
+    <main className="w-full min-h-screen py-8 md:py-20 px-4 sm:px-6 bg-[#f5f0e8]" style={{ fontFamily: "var(--font-philosopher)" }}>
       {/* --- Header Section --- */}
       <section className="max-w-7xl mx-auto text-center mb-16">
         <span 
