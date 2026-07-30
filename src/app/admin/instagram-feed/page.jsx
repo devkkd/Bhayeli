@@ -75,30 +75,100 @@ export default function AdminInstagramFeed() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+    // Reset input value so re-selecting same file triggers onChange
+    e.target.value = "";
 
-    if (type === "video") setUploadingVideo(true);
+    const isVideo = type === "video";
+    const maxMb = isVideo ? 100 : 15;
+    if (file.size > maxMb * 1024 * 1024) {
+      toast("error", `File size (${(file.size / (1024 * 1024)).toFixed(1)}MB) exceeds ${maxMb}MB limit.`);
+      return;
+    }
+
+    if (isVideo) setUploadingVideo(true);
     else setUploadingThumbnail(true);
 
     try {
-      // Use existing admin upload endpoint which accepts both image & video
-      const res = await fetch("/api/admin/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
-      if (data.success) {
-        if (type === "video") setVideoUrl(data.url);
-        else setThumbnailUrl(data.url);
-        toast("success", `${type === "video" ? "Video" : "Thumbnail"} uploaded successfully.`);
-      } else {
-        toast("error", data.message || "Upload failed.");
+      let uploadedUrl = null;
+      let uploadSuccess = false;
+
+      // 1. Attempt Presigned R2 Direct Upload (Bypasses server payload limits)
+      try {
+        const presignedRes = await fetch("/api/admin/upload", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "get_presigned_url",
+            fileName: file.name,
+            fileType: file.type || (isVideo ? "video/mp4" : "image/png"),
+          }),
+        });
+
+        if (presignedRes.ok) {
+          const presignedData = await presignedRes.json();
+          if (presignedData.success && presignedData.presignedUrl && presignedData.publicUrl) {
+            console.log("☁️ Uploading directly to Cloudflare R2...");
+            const r2PutRes = await fetch(presignedData.presignedUrl, {
+              method: "PUT",
+              headers: {
+                "Content-Type": presignedData.mimeType || file.type || (isVideo ? "video/mp4" : "image/png"),
+              },
+              body: file,
+            });
+
+            if (r2PutRes.ok) {
+              uploadedUrl = presignedData.publicUrl;
+              uploadSuccess = true;
+              console.log("✅ Direct R2 Upload successful:", uploadedUrl);
+            }
+          }
+        }
+      } catch (presignedErr) {
+        console.warn("⚠️ Presigned R2 upload not used or failed:", presignedErr.message);
       }
-    } catch {
-      toast("error", "Network error during upload.");
+
+      // 2. Fallback: Multipart Server Upload
+      if (!uploadSuccess) {
+        console.log("📁 Falling back to server multipart upload...");
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const res = await fetch("/api/admin/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const contentType = res.headers.get("content-type") || "";
+        let data;
+
+        if (contentType.includes("application/json")) {
+          data = await res.json();
+        } else {
+          const rawText = await res.text();
+          if (res.status === 413) {
+            throw new Error(`File size (${(file.size / (1024 * 1024)).toFixed(1)}MB) exceeds server upload limits. Please paste a direct video link or compress your video.`);
+          }
+          throw new Error(rawText || `Server returned status ${res.status}`);
+        }
+
+        if (data.success) {
+          uploadedUrl = data.url;
+          uploadSuccess = true;
+        } else {
+          throw new Error(data.message || "Upload failed.");
+        }
+      }
+
+      if (uploadSuccess && uploadedUrl) {
+        if (isVideo) setVideoUrl(uploadedUrl);
+        else setThumbnailUrl(uploadedUrl);
+        toast("success", `${isVideo ? "Video" : "Thumbnail"} uploaded successfully.`);
+      }
+    } catch (err) {
+      console.error("❌ File upload error:", err);
+      toast("error", err.message || "Network error during upload. Please check your file or try a direct URL.");
     } finally {
-      if (type === "video") setUploadingVideo(false);
+      if (isVideo) setUploadingVideo(false);
       else setUploadingThumbnail(false);
     }
   };
