@@ -146,7 +146,7 @@ export default function AdminInstagramFeed() {
         } else {
           const rawText = await res.text();
           if (res.status === 413) {
-            throw new Error(`File size (${(file.size / (1024 * 1024)).toFixed(1)}MB) exceeds server upload limits. Please paste a direct video link or compress your video.`);
+            throw new Error(`File size (${(file.size / (1024 * 1024)).toFixed(1)}MB) exceeds server limit without R2 (~3MB). Please add Cloudflare R2 env vars on production server, compress video under 3MB, or paste a direct video link.`);
           }
           throw new Error(rawText || `Server returned status ${res.status}`);
         }

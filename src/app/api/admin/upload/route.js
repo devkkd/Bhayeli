@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import crypto from 'crypto';
 
 export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
@@ -28,6 +29,65 @@ function resolveMimeType(filename, providedType) {
     '.pdf': 'application/pdf',
   };
   return map[ext] || 'application/octet-stream';
+}
+
+// Pure Node.js AWS SigV4 Presigned URL Generator for Cloudflare R2
+function generateR2PresignedUrl({ accessKeyId, secretAccessKey, endpoint, bucketName, publicDomain, key, mimeType, expiresIn = 3600 }) {
+  const urlObj = new URL(endpoint);
+  const host = urlObj.host;
+  
+  const now = new Date();
+  const amzDate = now.toISOString().replace(/[:-]/g, '').split('.')[0] + 'Z';
+  const datestamp = amzDate.substring(0, 8);
+  const region = 'auto';
+  const service = 's3';
+
+  const credentialScope = `${datestamp}/${region}/${service}/aws4_request`;
+  const canonicalPath = `/${bucketName}/${key.split('/').map(encodeURIComponent).join('/')}`;
+
+  const canonicalQueryParams = [
+    `X-Amz-Algorithm=AWS4-HMAC-SHA256`,
+    `X-Amz-Credential=${encodeURIComponent(`${accessKeyId}/${credentialScope}`)}`,
+    `X-Amz-Date=${amzDate}`,
+    `X-Amz-Expires=${expiresIn}`,
+    `X-Amz-SignedHeaders=host`,
+  ].sort().join('&');
+
+  const canonicalHeaders = `host:${host}\n`;
+  const signedHeaders = 'host';
+  const payloadHash = 'UNSIGNED-PAYLOAD';
+
+  const canonicalRequest = [
+    'PUT',
+    canonicalPath,
+    canonicalQueryParams,
+    canonicalHeaders,
+    signedHeaders,
+    payloadHash
+  ].join('\n');
+
+  const stringToSign = [
+    'AWS4-HMAC-SHA256',
+    amzDate,
+    credentialScope,
+    crypto.createHash('sha256').update(canonicalRequest).digest('hex')
+  ].join('\n');
+
+  const kDate = crypto.createHmac('sha256', 'AWS4' + secretAccessKey).update(datestamp).digest();
+  const kRegion = crypto.createHmac('sha256', kDate).update(region).digest();
+  const kService = crypto.createHmac('sha256', kRegion).update(service).digest();
+  const kSigning = crypto.createHmac('sha256', kService).update('aws4_request').digest();
+
+  const signature = crypto.createHmac('sha256', kSigning).update(stringToSign).digest('hex');
+
+  const presignedUrl = `${endpoint}${canonicalPath}?${canonicalQueryParams}&X-Amz-Signature=${signature}`;
+
+  const pubDomain = publicDomain || '';
+  const publicUrl = pubDomain 
+    ? `${pubDomain.replace(/\/$/, '')}/${key}` 
+    : `${endpoint}/${bucketName}/${key}`;
+
+  return { presignedUrl, publicUrl };
 }
 
 export async function POST(req) {
@@ -62,7 +122,7 @@ export async function POST(req) {
           return NextResponse.json({
             success: false,
             presignedAvailable: false,
-            message: 'Cloudflare R2 cloud storage is not configured on server.'
+            message: 'Cloudflare R2 cloud storage is not configured on server environment.'
           }, { status: 200 });
         }
 
@@ -74,6 +134,13 @@ export async function POST(req) {
           }, { status: 400 });
         }
 
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        const ext = path.extname(fileName) || '.mp4';
+        const rawName = fileName.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, "-");
+        const mimeType = resolveMimeType(fileName, fileType);
+        const key = `catalog/${rawName}-${uniqueSuffix}${ext}`;
+
+        // Attempt presigned URL generation with AWS SDK, fallback to native SigV4
         try {
           const { S3Client, PutObjectCommand } = await import('@aws-sdk/client-s3');
           const { getSignedUrl } = await import('@aws-sdk/s3-request-presigner');
@@ -87,12 +154,6 @@ export async function POST(req) {
             },
           });
 
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          const ext = path.extname(fileName) || '.mp4';
-          const rawName = fileName.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, "-");
-          const mimeType = resolveMimeType(fileName, fileType);
-          const key = `catalog/${rawName}-${uniqueSuffix}${ext}`;
-
           const command = new PutObjectCommand({
             Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME,
             Key: key,
@@ -100,7 +161,6 @@ export async function POST(req) {
           });
 
           const presignedUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-          
           const publicDomain = process.env.CLOUDFLARE_R2_PUBLIC_DOMAIN || '';
           const publicUrl = publicDomain 
             ? `${publicDomain.replace(/\/$/, '')}/${key}` 
@@ -114,13 +174,26 @@ export async function POST(req) {
             key,
             mimeType
           });
-        } catch (err) {
-          console.error('❌ Failed to generate R2 Presigned URL:', err);
+        } catch (sdkErr) {
+          console.warn('⚠️ AWS SDK presigner fallback triggered, using native Node SigV4 generator:', sdkErr.message);
+          const { presignedUrl, publicUrl } = generateR2PresignedUrl({
+            accessKeyId: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID,
+            secretAccessKey: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
+            endpoint: process.env.CLOUDFLARE_R2_ENDPOINT,
+            bucketName: process.env.CLOUDFLARE_R2_BUCKET_NAME,
+            publicDomain: process.env.CLOUDFLARE_R2_PUBLIC_DOMAIN,
+            key,
+            mimeType,
+          });
+
           return NextResponse.json({
-            success: false,
-            presignedAvailable: false,
-            message: `Failed to generate upload URL: ${err.message}`
-          }, { status: 500 });
+            success: true,
+            presignedAvailable: true,
+            presignedUrl,
+            publicUrl,
+            key,
+            mimeType
+          });
         }
       }
     }
